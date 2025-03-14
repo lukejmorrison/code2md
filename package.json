@@ -3,11 +3,33 @@
     "displayName": "Code to Markdown",
     "description": "Convert selected code files to a Markdown file with syntax highlighting",
     "version": "0.0.1",
+    "publisher": "lukejmorrison",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lukejmorrison/code2md"
+    },
+    "author": {
+        "name": "Luke Morrison",
+        "url": "https://github.com/lukejmorrison"
+    },
+    "license": "MIT",
+    "keywords": [
+        "markdown",
+        "code",
+        "AI",
+        "documentation",
+        "converter"
+    ],
     "engines": {
         "vscode": "^1.85.0"
     },
     "categories": ["Other"],
     "main": "./out/extension.js",
+    "activationEvents": [
+        "onCommand:code2md.generateMarkdown",
+        "onCommand:code2md.generateMarkdownContext",
+        "onCommand:code2md.generateMarkdownFromFolder"
+    ],
     "contributes": {
         "commands": [
             {
