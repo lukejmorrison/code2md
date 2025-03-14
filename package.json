@@ -1,13 +1,14 @@
 {
-    "name": "code2md",
-    "displayName": "Code to Markdown",
-    "description": "Convert selected code files to a Markdown file with syntax highlighting",
+    "name": "Code2MD-Wizwam",
+    "displayName": "Code2MD by Wizwam",
+    "description": "Code2MD is a tool for converting your code into a consolidated .md doc for communicating with an AI",
     "version": "0.0.1",
-    "publisher": "lukejmorrison",
+    "publisher": "WIZWAM",
     "repository": {
         "type": "git",
         "url": "https://github.com/lukejmorrison/code2md"
     },
+    "icon": "images/code2md-icon.png",
     "author": {
         "name": "Luke Morrison",
         "url": "https://github.com/lukejmorrison"

@@ -68,7 +68,7 @@ Follow these steps to set up and test the extension locally:
 1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on macOS).
 2. Type "Generate Markdown from Files" and select it.
 3. Choose one or more files in the file picker.
-4. A Markdown file (e.g., `2023-10-25_143022_MyProject_v01.md`) will be created in your workspace root or the directory of the first selected file.
+4. A Markdown file (e.g., `2023-10-25_0230PM_MyProject_v01.md`) will be created in your workspace root or the directory of the first selected file.
 
 ### Via Folder Selection (Recommended for Multiple Files)
 1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on macOS).
@@ -92,7 +92,7 @@ The generated Markdown includes:
 - File sections with relative paths and syntax-highlighted code blocks
 
 ## Troubleshooting
-- **Log Files**: The extension now creates detailed log files in your workspace root with the naming pattern `code2md_YYYY-MM-DD_HHMMSS.log`. These logs contain detailed information about each operation and can help diagnose issues.
+- **Log Files**: The extension now creates detailed log files in your workspace root with the naming pattern `code2md_YYYY-MM-DD_HHMMAM/PM.log`. These logs contain detailed information about each operation and can help diagnose issues.
 
 - **Output Panel**: Open the Output panel in VS Code (`Ctrl+Shift+U`), select "Extension Host" from the dropdown, and look for `[code2md]` prefixed messages.
 
