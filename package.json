@@ -1,0 +1,51 @@
+{
+    "name": "code2md",
+    "displayName": "Code to Markdown",
+    "description": "Convert selected code files to a Markdown file with syntax highlighting",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": ["Other"],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "code2md.generateMarkdown",
+                "title": "Generate Markdown from Files"
+            },
+            {
+                "command": "code2md.generateMarkdownContext",
+                "title": "Generate Markdown from Selected Files"
+            },
+            {
+                "command": "code2md.generateMarkdownFromFolder",
+                "title": "Generate Markdown from Folder"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "command": "code2md.generateMarkdownContext",
+                    "group": "navigation",
+                    "when": "resourceScheme == file"
+                },
+                {
+                    "command": "code2md.generateMarkdownContext",
+                    "group": "navigation",
+                    "when": "explorerResourceIsFolder && explorerResourceIsRoot"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "^18.x",
+        "@types/vscode": "^1.85.0",
+        "typescript": "^5.3.3"
+    }
+} 
