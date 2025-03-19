@@ -2,7 +2,7 @@
     "name": "Code2MD-Wizwam",
     "displayName": "Code2MD by Wizwam",
     "description": "Code2MD is a tool for converting your code into a consolidated .md doc for communicating with an AI",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "publisher": "WIZWAM",
     "repository": {
         "type": "git",

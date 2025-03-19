@@ -56,7 +56,12 @@ function logToFile(message) {
         }
         // Create or clear the log file
         fs.writeFileSync(logFilePath, `Code2MD Extension Log - ${new Date().toISOString()}\n\n`);
-        console.log(`[code2md] Log file created at: ${logFilePath}`);
+        // Log sanitized path
+        const sanitizedPath = vscode.workspace.workspaceFolders?.[0] ?
+            path.relative(vscode.workspace.workspaceFolders[0].uri.fsPath, logFilePath)
+                .split(path.sep).join('/') :
+            path.basename(logFilePath);
+        console.log(`[code2md] Log file created at: ${sanitizedPath}`);
     }
     // Append to log file
     try {
@@ -135,15 +140,28 @@ function getOutputFilePath(files) {
 }
 // Generates Markdown content from selected files with syntax-highlighted code blocks
 async function generateMarkdown(files) {
-    logToFile(`[code2md] Generating Markdown for files: ${files.map(f => f.fsPath).join(', ')}`);
+    // Sanitize file paths for logging
+    const sanitizedPaths = files.map(f => {
+        return vscode.workspace.workspaceFolders?.[0] ?
+            path.relative(vscode.workspace.workspaceFolders[0].uri.fsPath, f.fsPath)
+                .split(path.sep).join('/') : // Convert to forward slashes
+            path.basename(f.fsPath);
+    });
+    logToFile(`[code2md] Generating Markdown for files: ${sanitizedPaths.join(', ')}`);
     const outputPath = getOutputFilePath(files);
-    let markdownContent = `# Project: ${path.basename(vscode.workspace.workspaceFolders?.[0].uri.fsPath || 'NoWorkspace')}\n\n`;
+    // Sanitize workspace name
+    const workspaceName = (vscode.workspace.workspaceFolders?.[0]?.name ||
+        path.basename(vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || 'NoWorkspace'))
+        .replace(/[^\w\s-]/g, '') // Remove non-alphanumeric characters except spaces and hyphens
+        .trim();
+    let markdownContent = `# Project: ${workspaceName}\n\n`;
     // Add Table of Contents
     markdownContent += `## Table of Contents\n\n`;
     for (const file of files) {
         const fileName = path.basename(file.fsPath);
         const fileRelativePath = vscode.workspace.workspaceFolders?.[0] ?
-            path.relative(vscode.workspace.workspaceFolders[0].uri.fsPath, file.fsPath) :
+            path.relative(vscode.workspace.workspaceFolders[0].uri.fsPath, file.fsPath)
+                .split(path.sep).join('/') : // Convert to forward slashes
             fileName;
         // Create a valid ID by replacing special characters
         const fileId = fileName.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
@@ -153,14 +171,19 @@ async function generateMarkdown(files) {
     // Process each file
     let processedCount = 0;
     for (const file of files) {
-        logToFile(`[code2md] Processing file: ${file.fsPath}`);
+        const sanitizedPath = vscode.workspace.workspaceFolders?.[0] ?
+            path.relative(vscode.workspace.workspaceFolders[0].uri.fsPath, file.fsPath)
+                .split(path.sep).join('/') :
+            path.basename(file.fsPath);
+        logToFile(`[code2md] Processing file: ${sanitizedPath}`);
         try {
             const content = fs.readFileSync(file.fsPath, 'utf8');
             const fileExtension = path.extname(file.fsPath).substr(1);
             const language = getLanguageFromExtension(fileExtension);
             const fileName = path.basename(file.fsPath);
             const fileRelativePath = vscode.workspace.workspaceFolders?.[0] ?
-                path.relative(vscode.workspace.workspaceFolders[0].uri.fsPath, file.fsPath) :
+                path.relative(vscode.workspace.workspaceFolders[0].uri.fsPath, file.fsPath)
+                    .split(path.sep).join('/') :
                 fileName;
             // Create a valid ID by replacing special characters
             const fileId = fileName.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
@@ -169,13 +192,17 @@ async function generateMarkdown(files) {
             processedCount++;
         }
         catch (error) {
-            logToFile(`[code2md] Error processing file ${file.fsPath}: ${error}`);
+            logToFile(`[code2md] Error processing file ${sanitizedPath}: ${error}`);
             // Continue with other files
         }
     }
     try {
         fs.writeFileSync(outputPath, markdownContent);
-        logToFile(`[code2md] Markdown file written to: ${outputPath} with ${processedCount} of ${files.length} files`);
+        const sanitizedOutputPath = vscode.workspace.workspaceFolders?.[0] ?
+            path.relative(vscode.workspace.workspaceFolders[0].uri.fsPath, outputPath)
+                .split(path.sep).join('/') :
+            path.basename(outputPath);
+        logToFile(`[code2md] Markdown file written to: ${sanitizedOutputPath} with ${processedCount} of ${files.length} files`);
         return outputPath;
     }
     catch (error) {

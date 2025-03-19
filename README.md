@@ -1,143 +1,134 @@
-# Code to Markdown VS Code Extension
+# Code to Markdown (Code2MD) Extension for Visual Studio Code
 
-The "Code to Markdown" extension (`code2md`) lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets.
+![Code2MD Extension Icon](https://apps42.wizwam.com/wizwam/images/code2md-icon.png)
 
-## Why Use Code to Markdown for AI Prompts?
+The Code2MD Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
-Interacting with AI assistants effectively requires optimizing both your time and costs. The `code2md` extension is specifically designed to prepare your code in the most AI-friendly format.
+## Why use Code2MD?
 
-### Why Markdown (.md) is the Best Choice for AI Prompts
+### Benefits for AI Prompts
+- **Efficient Token Usage**: Markdown's lightweight syntax minimizes token counts, reducing costs with AI services.
+- **Easy for AI to Understand**: Plain-text format with language identifiers (e.g., ```python) helps AI parse code accurately.
+- **Organized and Readable**: Structure your codebase with headers and sections for clarity.
+- **Faster Processing**: Markdown requires no preprocessing, speeding up AI response times.
 
-- **Efficient Token Usage**  
-  Markdown uses a lightweight syntax (e.g., `#` for headers, ``` for code blocks) that adds minimal extra characters compared to raw text. This keeps token counts low, as AI models process every character—including formatting—as a token. Unlike heavier formats like PDFs or HTML, which include complex markup or metadata, Markdown focuses on the code and context, maximizing the space for meaningful content.
-
-- **Easy for AI to Understand**  
-  As a plain-text format with simple markup, Markdown is straightforward for AI to parse. It avoids the need to extract text from binary formats (like PDFs) or navigate intricate structures. Plus, adding language identifiers (e.g., ```python) to code blocks gives the AI clear context about the programming language, improving its ability to provide accurate responses without extra clarification.
-
-- **Organized and Readable**  
-  Markdown lets you structure your input with headers, sections, and comments, making it easy to present large codebases clearly. This helps both you and the AI navigate the content efficiently, reducing confusion and follow-up questions.
-
-- **Faster Processing**  
-  Since Markdown requires no extraction or preprocessing (unlike PDFs, which might need OCR), the AI can ingest it directly. Its clean format also allows the AI to load and understand context quickly, speeding up response times.
-
-### How the "code2md" VS Code Extension Saves Tokens, Time, and Money
-
-- **One-Click Markdown Creation**  
-  The "code2md" extension automatically combines selected code files into a single `.md` file, complete with headers and language-specific code blocks (e.g., ```javascript). This saves you the effort of manually formatting your code, ensuring it's AI-ready in seconds.
-
-- **Token Optimization**  
-  By producing a clean, structured Markdown file, "code2md" eliminates unnecessary data or formatting that could inflate token counts. This efficiency reduces the number of tokens sent to the AI, directly lowering costs since many AI services charge per token.
-
-- **Reduced Processing Time**  
-  The structured output from "code2md" helps the AI grasp your codebase faster, leading to quicker and more accurate responses. Fewer misunderstandings mean less back-and-forth, saving both time and additional token usage.
-
-- **Cost Savings for Programmers**  
-  With lower token counts and faster interactions, you spend less on AI services. For programmers paying for AI coding assistance, this translates to tangible savings—both in money (fewer tokens billed) and time (less effort refining prompts or fixing responses).
+### How Code2MD Saves Time and Money
+- **One-Click Markdown Creation**: Automatically formats code into Markdown with proper code blocks.
+- **Token Optimization**: Clean output reduces token usage, lowering costs.
+- **Reduced Processing Time**: Structured Markdown helps AI understand your code faster.
+- **Cost Savings**: Lower token counts and quicker interactions save money for programmers using AI services.
 
 ## Features
 - Generate Markdown files from multiple files via the Command Palette or Explorer context menu.
 - **Table of Contents**: Automatically generates a TOC with links to each included file.
 - Unique file naming with timestamps and versioning to prevent overwrites.
 - Syntax highlighting based on file extensions (e.g., `.ts` → `typescript`, `.py` → `python`, `.rs` → `rust`).
-- Display of relative file paths to provide better context for included files.
-- Detailed logging for troubleshooting during development.
+- Display of relative file paths for better context.
+- Detailed logging for troubleshooting.
 
-## Installation
-Follow these steps to set up and test the extension locally:
+## Installation from VS Code
 
-1. **Clone or Create the Project**:
-   - Clone this repository or create a folder at `C:\dev\code2md`.
-   - Ensure you have `package.json` and `extension.ts` in the `src` subdirectory.
+You can install the Code2MD Extension directly from the VS Code Marketplace within VS Code:
+
+1. Open VS Code.
+2. Click the Extensions icon in the Activity Bar or press `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (macOS).
+3. Search for `code2md`.
+4. Look for "Code2MD Extension" by WIZWAM.
+5. Click **Install**.
+
+Alternatively, you can install it via the VS Code Quick Open command:
+1. Open Quick Open with `Ctrl+P` (Windows/Linux) or `Cmd+P` (macOS).
+2. Paste the following command and press Enter:
+   ```
+   ext install WIZWAM.Code2MD-Wizwam
+   ```
+
+## Installation from GitHub Repository
+
+To install and test the extension directly from the GitHub repository, follow these steps:
+
+1. **Clone the Repository**:
+   - Clone the repository to your local machine:
+     ```bash
+     git clone https://github.com/lukejmorrison/code2md.git
+     ```
+   - Alternatively, download the repository as a ZIP file and extract it to a folder named `code2md`.
 
 2. **Install Dependencies**:
-   - Open a terminal in `C:\dev\code2md`.
-   - Run `npm install` to install the required dev dependencies (`@types/node`, `@types/vscode`, `typescript`).
+   - Open a terminal in the `code2md` directory.
+   - Run the following command to install the required dependencies:
+     ```bash
+     npm install
+     ```
 
 3. **Compile the Extension**:
-   - Run `npm run compile` to build `out/extension.js` from `src/extension.ts`.
+   - Compile the TypeScript code into JavaScript:
+     ```bash
+     npm run compile
+     ```
    - Alternatively, use `npm run watch` to automatically recompile on changes.
 
-4. **Test the Extension**:
-   - Open `C:\dev\code2md` in VS Code.
+4. **Test the Extension in VS Code**:
+   - Open the `code2md` folder in VS Code.
    - Press `F5` to launch a new VS Code window with the extension loaded.
    - Use the Command Palette or context menu to test Markdown generation.
 
 ## Usage
 
-### Via Command Palette
-1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on macOS).
-2. Type "Generate Markdown from Files" and select it.
+### Using the Command Palette
+1. Open the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on macOS).
+2. Type `Generate Markdown from Files` and select it.
 3. Choose one or more files in the file picker.
 4. A Markdown file (e.g., `2023-10-25_0230PM_MyProject_v01.md`) will be created in your workspace root or the directory of the first selected file.
 
-### Via Folder Selection (Recommended for Multiple Files)
-1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on macOS).
-2. Type "Generate Markdown from Folder" and select it.
-3. Choose a folder containing the files you want to include.
-   - **Important**: Select the folder itself, not individual files within it.
-4. Enter the file extensions you want to include (e.g., `rs,toml,html`).
-5. The extension will recursively find all matching files and generate a Markdown file with all of them.
+### Using Folder Selection (Recommended for Multiple Files)
+1. Open the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on macOS).
+2. Type `Generate Markdown from Folder` and select it.
+3. Choose a folder containing the files you want to include.  
+   **Note**: Select the folder itself, not individual files within it.
+4. Enter the file extensions to include (e.g., `rs,toml,html`).
+5. The extension will recursively find all matching files and generate a Markdown file.
 
-### Via Context Menu
-1. In the Explorer, select one or more files using `Ctrl + Click` for multiple selections.
-2. Right-click and choose "Generate Markdown from Selected Files."
-3. The Markdown file with a Table of Contents and all selected files will be generated in your workspace root.
-
-**Note**: Due to VS Code context menu limitations, if you're having trouble with multiple file selection, please use the "Generate Markdown from Folder" command instead.
+### Using the Context Menu
+1. In the Explorer, select one or more files using `Ctrl+Click` (Windows/Linux) or `Cmd+Click` (macOS) for multiple selections.
+2. Right-click and choose `Generate Markdown from Selected Files`.
+3. A Markdown file with a Table of Contents and all selected files will be generated in your workspace root.  
+   **Note**: If multiple file selection doesn’t work, use the "Generate Markdown from Folder" command instead.
 
 ### Output Format
 The generated Markdown includes:
-- A project title based on the workspace name
-- A Table of Contents with links to each file section
-- File sections with relative paths and syntax-highlighted code blocks
+- A project title based on the workspace name.
+- A Table of Contents with links to each file section.
+- File sections with relative paths and syntax-highlighted code blocks.
 
 ## Troubleshooting
-- **Log Files**: The extension now creates detailed log files in your workspace root with the naming pattern `code2md_YYYY-MM-DD_HHMMAM/PM.log`. These logs contain detailed information about each operation and can help diagnose issues.
-
-- **Output Panel**: Open the Output panel in VS Code (`Ctrl+Shift+U`), select "Extension Host" from the dropdown, and look for `[code2md]` prefixed messages.
-
+- **Log Files**: Check detailed logs in your workspace root (e.g., `code2md_YYYY-MM-DD_HHMMAM/PM.log`) for operation details.
+- **Output Panel**: Open the Output panel in VS Code (`Ctrl+Shift+U`), select "Extension Host," and look for `[code2md]` messages.
 - **Common Issues**:
-  - **No files selected**: 
-    - For the "Generate Markdown from Files" command, make sure to select files in the file picker.
-    - For the "Generate Markdown from Folder" command, make sure to select a folder, not individual files.
-    - For the context menu command, make sure to select files before right-clicking.
-  
-  - **Multiple file selection issues**: 
-    - If selecting multiple files with Ctrl+Click doesn't work, use the "Generate Markdown from Folder" command instead.
-    - Make sure to right-click on one of the selected files, not outside the selection.
-    - Some VS Code versions may have limitations with multiple file selection in the context menu.
-  
-  - **Permission errors**: Check that VS Code has write access to the output directory.
+  - **No files selected**: Ensure you select files or a folder as required by the command.
+  - **Multiple file selection issues**: Use the "Generate Markdown from Folder" command if `Ctrl+Click` fails.
+  - **Permission errors**: Verify VS Code has write access to the output directory.
 
 ## Development
-- **Build**: `npm run compile` or `npm run watch`.
+- **Build**: Run `npm run compile` or `npm run watch`.
 - **Folder Structure**:
-```
-code2md/
-├── src/                 # Source code
-│   └── extension.ts     # Main extension code
-├── out/                 # Compiled JavaScript (generated)
-│   ├── extension.js     # Compiled extension
-│   └── extension.js.map # Source map
-├── examples/            # Example files for testing
-├── node_modules/        # Dependencies (generated)
-├── .vscode/             # VS Code settings
-├── package.json         # Project configuration and dependencies
-├── package-lock.json    # Dependency lock file
-├── tsconfig.json        # TypeScript compiler configuration
-└── README.md            # Project documentation
-```
+  ```
+  code2md/
+  ├── src/                 # Source code
+  │   └── extension.ts     # Main extension code
+  ├── out/                 # Compiled JavaScript (generated)
+  │   ├── extension.js     # Compiled extension
+  │   └── extension.js.map # Source map
+  ├── examples/            # Example files for testing
+  ├── images/              # Extension icon
+  │   └── code2md-icon.png
+  ├── node_modules/        # Dependencies (generated)
+  ├── .vscode/             # VS Code settings
+  ├── package.json         # Project configuration and dependencies
+  ├── package-lock.json    # Dependency lock file
+  ├── tsconfig.json        # TypeScript compiler configuration
+  └── README.md            # Project documentation
+  ```
 
 ## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
