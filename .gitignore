@@ -1,4 +1,16 @@
 node_modules
 .vscode-test/
 *.vsix
-.DS_Store 
+.DS_Store
+
+# Exclude log files
+*.log
+
+# Exclude markdown files
+*.md
+
+# Exclude folders
+examples/
+logfiles/
+mactestoutput/
+backup/
