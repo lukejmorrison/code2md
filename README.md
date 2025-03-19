@@ -1,6 +1,4 @@
-# Code to Markdown (Code2MD) Extension for Visual Studio Code
-
-![Code2MD Extension Icon](https://apps42.wizwam.com/wizwam/images/code2md-icon.png)
+# Code to Markdown (Code2Markdown) Extension for Visual Studio Code
 
 The Code2MD Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
