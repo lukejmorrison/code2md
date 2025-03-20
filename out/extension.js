@@ -40,20 +40,32 @@ const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 // Create a log file in the extension's directory
 let logFilePath;
+// Helper function to ensure codereview directory exists
+function ensureCodeReviewDir(baseDir) {
+    const codeReviewDir = path.join(baseDir, 'codereview');
+    if (!fs.existsSync(codeReviewDir)) {
+        try {
+            fs.mkdirSync(codeReviewDir, { recursive: true });
+            logToFile(`[code2md] Created codereview directory at: ${codeReviewDir}`);
+        }
+        catch (error) {
+            console.error(`[code2md] Error creating codereview directory: ${error}`);
+            throw error;
+        }
+    }
+    return codeReviewDir;
+}
 // Helper function to write to log file
 function logToFile(message) {
     if (!logFilePath) {
         // Initialize log file path if not already set
         const timestamp = getFormattedTimestamp();
-        const logFileName = `code2md_${timestamp}.log`;
-        // Try to use workspace folder first, fall back to temp directory
-        if (vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
-            logFilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, logFileName);
-        }
-        else {
-            // Fallback to extension directory
-            logFilePath = path.join(__dirname, '..', logFileName);
-        }
+        const baseDir = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || path.join(__dirname, '..');
+        const codeReviewDir = ensureCodeReviewDir(baseDir);
+        // Use the same base name as the markdown file for the log file
+        const baseFileName = `${timestamp}_${vscode.workspace.workspaceFolders?.[0]?.name || 'CodeExport'}_v01`;
+        const logFileName = `${baseFileName}.log`;
+        logFilePath = path.join(codeReviewDir, logFileName);
         // Create or clear the log file
         fs.writeFileSync(logFilePath, `Code2MD Extension Log - ${new Date().toISOString()}\n\n`);
         // Log sanitized path
@@ -93,25 +105,27 @@ function getFormattedTimestamp() {
 function getOutputFilePath(files) {
     const timestamp = getFormattedTimestamp();
     let rootFolderName;
-    let outputDir;
+    let baseDir;
     // Use workspace folder if available; otherwise, fall back to the directory of the first file
     if (vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
         rootFolderName = vscode.workspace.workspaceFolders[0].name;
-        outputDir = vscode.workspace.workspaceFolders[0].uri.fsPath;
+        baseDir = vscode.workspace.workspaceFolders[0].uri.fsPath;
     }
     else {
         rootFolderName = "CodeExport";
-        outputDir = path.dirname(files[0].fsPath);
+        baseDir = path.dirname(files[0].fsPath);
     }
+    // Ensure codereview directory exists
+    const codeReviewDir = ensureCodeReviewDir(baseDir);
     // Check existing files in the directory to determine the next version number
     // Get the date part of the timestamp (YYYY-MM-DD)
     const datePart = timestamp.split('_')[0];
     // Find all files that match the current date
     let version = 1;
     try {
-        const files = fs.readdirSync(outputDir);
+        const existingFiles = fs.readdirSync(codeReviewDir);
         // Filter files that match the current date and pattern
-        const todaysFiles = files.filter(file => file.startsWith(datePart) &&
+        const todaysFiles = existingFiles.filter(file => file.startsWith(datePart) &&
             file.includes(rootFolderName) &&
             file.endsWith('.md') &&
             file.match(/_v\d+\.md$/));
@@ -134,7 +148,7 @@ function getOutputFilePath(files) {
     }
     const paddedVersion = version.toString().padStart(2, '0');
     const filename = `${timestamp}_${rootFolderName}_v${paddedVersion}.md`;
-    const outputPath = path.join(outputDir, filename);
+    const outputPath = path.join(codeReviewDir, filename);
     logToFile(`[code2md] Output path set to: ${outputPath} (Version: ${version})`);
     return outputPath;
 }
@@ -233,6 +247,28 @@ function getLanguageFromExtension(extension) {
     };
     return languageMap[extension.toLowerCase()];
 }
+// New helper function to get default extensions
+function getDefaultExtensions() {
+    return [
+        'ts', 'js', 'jsx', 'tsx', // JavaScript/TypeScript
+        'py', // Python
+        'java', // Java
+        'cpp', 'hpp', 'c', 'h', // C/C++
+        'cs', // C#
+        'go', // Go
+        'rs', // Rust
+        'php', // PHP
+        'rb', // Ruby
+        'swift', // Swift
+        'kt', // Kotlin
+        'html', 'css', 'scss', // Web
+        'json', 'yaml', 'yml', // Data
+        'md', 'txt', // Documentation
+        'xml', // XML
+        'sql', // SQL
+        'sh', 'bash', 'ps1' // Scripts
+    ];
+}
 // Activates the extension and registers commands
 function activate(context) {
     console.log('[code2md] Code to Markdown extension activated');
@@ -273,38 +309,51 @@ function activate(context) {
             canSelectFiles: false,
             canSelectFolders: true,
             canSelectMany: false,
-            openLabel: 'Select Folder'
+            openLabel: 'Select Folder',
+            title: 'Select Folder to Generate Markdown'
         });
         if (!folders || folders.length === 0) {
             logToFile('[code2md] No folder selected');
-            vscode.window.showErrorMessage('Please select a folder to generate Markdown from (not individual files).');
+            vscode.window.showErrorMessage('Please select a folder to generate Markdown from.');
             return;
         }
         const folderPath = folders[0].fsPath;
         logToFile(`[code2md] Selected folder: ${folderPath}`);
-        // Ask user for file extensions to include
+        // Ask user for file extensions with improved default list
+        const defaultExtensions = getDefaultExtensions().join(',');
         const extensionsInput = await vscode.window.showInputBox({
-            prompt: 'Enter file extensions to include (comma separated, e.g., ts,js,py,rs,toml,html)',
-            value: 'ts,js,py,rs,toml,html,css,json,md'
+            prompt: 'Enter file extensions to include (comma separated)',
+            value: defaultExtensions,
+            placeHolder: 'e.g., ts,js,py,java,cpp',
+            validateInput: (value) => {
+                if (!value || value.trim().length === 0) {
+                    return 'Please enter at least one file extension';
+                }
+                return null;
+            }
         });
         if (!extensionsInput) {
             logToFile('[code2md] No extensions provided');
             vscode.window.showErrorMessage('No file extensions provided.');
             return;
         }
-        const extensions = extensionsInput.split(',').map(ext => ext.trim().toLowerCase());
+        const extensions = extensionsInput.split(',')
+            .map(ext => ext.trim().toLowerCase())
+            .filter(ext => ext.length > 0)
+            .map(ext => ext.startsWith('.') ? ext.substring(1) : ext);
         logToFile(`[code2md] File extensions to include: ${extensions.join(', ')}`);
         // Find all matching files in the folder
         const files = [];
-        // Helper function to recursively find files
+        // Improved helper function to recursively find files
         const findFiles = (dirPath) => {
             try {
                 const entries = fs.readdirSync(dirPath, { withFileTypes: true });
                 for (const entry of entries) {
                     const fullPath = path.join(dirPath, entry.name);
+                    // Skip hidden folders and specified directories
                     if (entry.isDirectory()) {
-                        // Skip node_modules and hidden folders
-                        if (entry.name !== 'node_modules' && !entry.name.startsWith('.')) {
+                        const skipDirs = ['node_modules', '.git', '.vs', '.idea', 'bin', 'obj', 'dist', 'build', 'target'];
+                        if (!entry.name.startsWith('.') && !skipDirs.includes(entry.name)) {
                             findFiles(fullPath);
                         }
                     }
@@ -324,23 +373,33 @@ function activate(context) {
         };
         try {
             findFiles(folderPath);
-            logToFile(`[code2md] Found ${files.length} matching files`);
             if (files.length === 0) {
                 const message = `No files with extensions ${extensions.join(', ')} found in the selected folder.`;
                 logToFile(`[code2md] ${message}`);
                 vscode.window.showErrorMessage(message);
                 return;
             }
-            const outputPath = await generateMarkdown(files);
-            const successMessage = `Markdown file generated with ${files.length} files at: ${outputPath}`;
-            logToFile(`[code2md] ${successMessage}`);
-            vscode.window.showInformationMessage(successMessage);
-            // Show the generated file
-            const doc = await vscode.workspace.openTextDocument(outputPath);
-            await vscode.window.showTextDocument(doc);
+            // Sort files by path for consistent ordering
+            files.sort((a, b) => a.fsPath.localeCompare(b.fsPath));
+            logToFile(`[code2md] Found ${files.length} matching files`);
+            // Show progress indicator for large folders
+            await vscode.window.withProgress({
+                location: vscode.ProgressLocation.Notification,
+                title: "Generating Markdown",
+                cancellable: false
+            }, async (progress) => {
+                progress.report({ message: `Processing ${files.length} files...` });
+                const outputPath = await generateMarkdown(files);
+                const successMessage = `Markdown file generated with ${files.length} files at: ${outputPath}`;
+                logToFile(`[code2md] ${successMessage}`);
+                vscode.window.showInformationMessage(successMessage);
+                // Show the generated file
+                const doc = await vscode.workspace.openTextDocument(outputPath);
+                await vscode.window.showTextDocument(doc);
+            });
         }
         catch (error) {
-            const errorMessage = `Error finding files: ${error}`;
+            const errorMessage = `Error processing files: ${error}`;
             logToFile(`[code2md] ${errorMessage}`);
             vscode.window.showErrorMessage(errorMessage);
         }

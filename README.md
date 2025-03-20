@@ -90,22 +90,38 @@ To install and test the extension directly from the GitHub repository, follow th
 ### Using the Context Menu
 1. In the Explorer, select one or more files using `Ctrl+Click` (Windows/Linux) or `Cmd+Click` (macOS) for multiple selections.
 2. Right-click and choose `Generate Markdown from Selected Files`.
-3. A Markdown file with a Table of Contents and all selected files will be generated in your workspace root.  
-   **Note**: If multiple file selection doesn’t work, use the "Generate Markdown from Folder" command instead.
+3. A Markdown file with a Table of Contents and all selected files will be generated in the `codereview` folder:
+   ```
+   your-project/
+   └── codereview/
+       ├── 2025-03-19_0257PM_MyProject_v01.md    # Generated markdown file
+       └── 2025-03-19_0257PM_MyProject_v01.log    # Corresponding log file
+   ```
+   **Note**: If multiple file selection doesn't work, use the "Generate Markdown from Folder" command instead.
 
 ### Output Format
 The generated Markdown includes:
 - A project title based on the workspace name.
 - A Table of Contents with links to each file section.
 - File sections with relative paths and syntax-highlighted code blocks.
+- All output files are stored in a `codereview` folder:
+  ```
+  your-project/
+  ├── codereview/
+  │   ├── 2025-03-19_0257PM_MyProject_v01.md    # Generated markdown file
+  │   └── 2025-03-19_0257PM_MyProject_v01.log    # Corresponding log file
+  ├── src/
+  └── ...
+  ```
 
 ## Troubleshooting
-- **Log Files**: Check detailed logs in your workspace root (e.g., `code2md_YYYY-MM-DD_HHMMAM/PM.log`) for operation details.
+- **Log Files**: Check detailed logs in the `codereview` folder (e.g., `codereview/2025-03-19_0257PM_MyProject_v01.log`).
+- **Output Location**: All generated files are stored in a `codereview` folder in your workspace root or next to the first selected file.
 - **Output Panel**: Open the Output panel in VS Code (`Ctrl+Shift+U`), select "Extension Host," and look for `[code2md]` messages.
 - **Common Issues**:
   - **No files selected**: Ensure you select files or a folder as required by the command.
   - **Multiple file selection issues**: Use the "Generate Markdown from Folder" command if `Ctrl+Click` fails.
-  - **Permission errors**: Verify VS Code has write access to the output directory.
+  - **Permission errors**: Verify VS Code has write access to create and write to the `codereview` directory.
 
 ## Development
 - **Build**: Run `npm run compile` or `npm run watch`.
@@ -114,6 +130,9 @@ The generated Markdown includes:
   code2md/
   ├── src/                 # Source code
   │   └── extension.ts     # Main extension code
+  ├── codereview/          # Generated markdown and log files
+  │   ├── YYYY-MM-DD_HHMMAM_Project_v01.md
+  │   └── YYYY-MM-DD_HHMMAM_Project_v01.log
   ├── out/                 # Compiled JavaScript (generated)
   │   ├── extension.js     # Compiled extension
   │   └── extension.js.map # Source map
