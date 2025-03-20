@@ -1,5 +1,7 @@
-node_modules
+out/
+node_modules/
 .vscode-test/
+codereview/
 *.vsix
 .DS_Store
 

@@ -1,8 +1,8 @@
 # Code to Markdown (Code2Markdown) Extension for Visual Studio Code
 
-The Code2MD Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
+The Code2Markdown Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
-## Why use Code2MD?
+## Why use Code2Markdown?
 
 ### Benefits for AI Prompts
 - **Efficient Token Usage**: Markdown's lightweight syntax minimizes token counts, reducing costs with AI services.
@@ -10,7 +10,7 @@ The Code2MD Extension lets you convert selected code files in VS Code into a sin
 - **Organized and Readable**: Structure your codebase with headers and sections for clarity.
 - **Faster Processing**: Markdown requires no preprocessing, speeding up AI response times.
 
-### How Code2MD Saves Time and Money
+### How Code2Markdown Saves Time and Money
 - **One-Click Markdown Creation**: Automatically formats code into Markdown with proper code blocks.
 - **Token Optimization**: Clean output reduces token usage, lowering costs.
 - **Reduced Processing Time**: Structured Markdown helps AI understand your code faster.
@@ -26,19 +26,19 @@ The Code2MD Extension lets you convert selected code files in VS Code into a sin
 
 ## Installation from VS Code
 
-You can install the Code2MD Extension directly from the VS Code Marketplace within VS Code:
+You can install the Code2Markdown Extension directly from the VS Code Marketplace within VS Code:
 
 1. Open VS Code.
 2. Click the Extensions icon in the Activity Bar or press `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (macOS).
-3. Search for `code2md`.
-4. Look for "Code2MD Extension" by WIZWAM.
+3. Search for `Code2Markdown`.
+4. Look for "Code2Markdown Extension" by WIZWAM.
 5. Click **Install**.
 
 Alternatively, you can install it via the VS Code Quick Open command:
 1. Open Quick Open with `Ctrl+P` (Windows/Linux) or `Cmd+P` (macOS).
 2. Paste the following command and press Enter:
    ```
-   ext install WIZWAM.Code2MD-Wizwam
+   ext install WIZWAM.Code2Markdown-Wizwam
    ```
 
 ## Installation from GitHub Repository
@@ -77,7 +77,7 @@ To install and test the extension directly from the GitHub repository, follow th
 1. Open the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on macOS).
 2. Type `Generate Markdown from Files` and select it.
 3. Choose one or more files in the file picker.
-4. A Markdown file (e.g., `2023-10-25_0230PM_MyProject_v01.md`) will be created in your workspace root or the directory of the first selected file.
+4. A Markdown file (e.g., `2023-10-25_0230PM_MyProject_v01.md`) will be created in the `codereview` folder.
 
 ### Using Folder Selection (Recommended for Multiple Files)
 1. Open the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on macOS).
@@ -85,7 +85,7 @@ To install and test the extension directly from the GitHub repository, follow th
 3. Choose a folder containing the files you want to include.  
    **Note**: Select the folder itself, not individual files within it.
 4. Enter the file extensions to include (e.g., `rs,toml,html`).
-5. The extension will recursively find all matching files and generate a Markdown file.
+5. The extension will recursively find all matching files and generate a Markdown file in the `codereview` folder.
 
 ### Using the Context Menu
 1. In the Explorer, select one or more files using `Ctrl+Click` (Windows/Linux) or `Cmd+Click` (macOS) for multiple selections.
@@ -116,7 +116,7 @@ The generated Markdown includes:
 
 ## Troubleshooting
 - **Log Files**: Check detailed logs in the `codereview` folder (e.g., `codereview/2025-03-19_0257PM_MyProject_v01.log`).
-- **Output Location**: All generated files are stored in a `codereview` folder in your workspace root or next to the first selected file.
+- **Output Location**: All generated files are stored in a `codereview` folder in your workspace.
 - **Output Panel**: Open the Output panel in VS Code (`Ctrl+Shift+U`), select "Extension Host," and look for `[code2md]` messages.
 - **Common Issues**:
   - **No files selected**: Ensure you select files or a folder as required by the command.
