@@ -5,11 +5,18 @@ codereview/
 *.vsix
 .DS_Store
 
+# Exclude .code-workspace file
+.code-workspace
+
 # Exclude log files
 *.log
 
-# Exclude markdown files
+# Exclude markdown files except README.md
 *.md
+!README.md
+
+# Exclude .ps1 files used for staging and publishing
+*.ps1
 
 # Exclude folders
 examples/
