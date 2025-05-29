@@ -11,9 +11,6 @@ codereview/
 # Exclude log files
 *.log
 
-# Exclude markdown files except README.md
-*.md
-!README.md
 
 # Exclude .ps1 files used for staging and publishing
 *.ps1

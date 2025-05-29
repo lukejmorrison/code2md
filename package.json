@@ -1,5 +1,4 @@
-{
-    "name": "code2markdown_wizwam",
+{    "name": "code2markdown-wizwam",
     "displayName": "Code2Markdown by Wizwam",
     "description": "Code2Markdown - A tool for efficently communicating with AI",
     "version": "1.1.0",
@@ -9,16 +8,11 @@
         "url": "https://github.com/lukejmorrison/code2md"
     },
     "icon": "images/code2md-icon.png",
+    "readme": "README.md",
     "author": {
         "name": "Luke Morrison",
         "url": "https://github.com/lukejmorrison"
     },
-    "contributors": [
-      {
-        "name": "alessbarb",
-        "url": "https://github.com/alessbarb"
-      }
-    ],
     "license": "MIT",
     "keywords": [
         "markdown",
@@ -32,7 +26,10 @@
     },
     "categories": ["Other"],
     "main": "./out/extension.js",
-    "activationEvents": [],
+    "activationEvents": [
+        
+        
+    ],
     "contributes": {
         "commands": [
             {
@@ -41,7 +38,7 @@
             },
             {
                 "command": "code2md.generateMarkdownContext",
-                "title": "Generate Markdown from Selected Files"
+                "title": "Code2md - Generate Markdown from Selected Files"
             },
             {
                 "command": "code2md.generateMarkdownFromFolder",
@@ -61,29 +58,6 @@
                     "when": "explorerResourceIsFolder && explorerResourceIsRoot"
                 }
             ]
-        },
-        "configuration": {
-          "title": "Code2MD",
-          "properties": {
-            "code2md.ignoreFolders": {
-              "type": "array",
-              "default": [
-                "node_modules",
-                ".git",
-                ".vs",
-                ".idea",
-                "bin",
-                "obj",
-                "dist",
-                "build",
-                "target"
-              ],
-              "description": "List of folders to ignore when scanning the project. There is no need to use glob patterns (/), just the folder name.",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
         }
     },
     "scripts": {
@@ -95,5 +69,11 @@
         "@types/node": "^18.x",
         "@types/vscode": "^1.85.0",
         "typescript": "^5.3.3"
+    },
+    "packages": {
+        "": {
+            "name": "code2markdown-wizwam",
+            "version": "1.0.8"
+        }
     }
 }
