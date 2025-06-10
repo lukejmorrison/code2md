@@ -1,8 +1,8 @@
 {
-    "name": "Code2Markdown-Wizwam",
+    "name": "code2markdown_wizwam",
     "displayName": "Code2Markdown by Wizwam",
     "description": "Code2Markdown - A tool for efficently communicating with AI",
-    "version": "1.0.6",
+    "version": "1.1.0",
     "publisher": "WIZWAM",
     "repository": {
         "type": "git",
@@ -13,6 +13,12 @@
         "name": "Luke Morrison",
         "url": "https://github.com/lukejmorrison"
     },
+    "contributors": [
+      {
+        "name": "alessbarb",
+        "url": "https://github.com/alessbarb"
+      }
+    ],
     "license": "MIT",
     "keywords": [
         "markdown",
@@ -26,11 +32,7 @@
     },
     "categories": ["Other"],
     "main": "./out/extension.js",
-    "activationEvents": [
-        
-        
-        
-    ],
+    "activationEvents": [],
     "contributes": {
         "commands": [
             {
@@ -59,6 +61,29 @@
                     "when": "explorerResourceIsFolder && explorerResourceIsRoot"
                 }
             ]
+        },
+        "configuration": {
+          "title": "Code2MD",
+          "properties": {
+            "code2md.ignoreFolders": {
+              "type": "array",
+              "default": [
+                "node_modules",
+                ".git",
+                ".vs",
+                ".idea",
+                "bin",
+                "obj",
+                "dist",
+                "build",
+                "target"
+              ],
+              "description": "List of folders to ignore when scanning the project. There is no need to use glob patterns (/), just the folder name.",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
         }
     },
     "scripts": {
