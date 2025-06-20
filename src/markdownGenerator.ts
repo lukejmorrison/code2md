@@ -13,23 +13,25 @@ import { Logger } from "./logger";
  * @param files The array of file URIs to process.
  * @param loggerInstance The logger instance to use for logging messages.
  */
-function getOutputPath(files: vscode.Uri[], loggerInstance: Logger): string {
+async function getOutputPath(files: vscode.Uri[], loggerInstance: Logger): Promise<string> {
   const folder = loggerInstance.getWorkspaceFolderOrWarn();
   const timestamp = loggerInstance.getFileTimestamp();
 
   const baseDir = folder?.uri.fsPath || path.dirname(files[0].fsPath);
   const projectName = folder?.name || "CodeExport";
   const codereviewDir = path.join(baseDir, "codereview");
-  fs.mkdirSync(codereviewDir, { recursive: true });
+  await fsp.mkdir(codereviewDir, { recursive: true });
 
   const datePrefix = timestamp.split("_")[0];
-  const existing = fs
-    .readdirSync(codereviewDir)
-    .filter(
-      (f) =>
-        f.startsWith(datePrefix) &&
-        f.includes(projectName) &&
-        f.endsWith(".md"),
+  const existing = await fsp
+    .readdir(codereviewDir)
+    .then((files) =>
+      files.filter(
+        (f) =>
+          f.startsWith(datePrefix) &&
+          f.includes(projectName) &&
+          f.endsWith(".md"),
+      ),
     );
 
   const maxVer = existing.reduce<number>((max, filename) => {
