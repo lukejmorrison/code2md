@@ -21,7 +21,8 @@ export async function findFilesRecursivelyAsync(
   loggerInstance: Logger,
 ): Promise<void> {
   try {
-    const entries = await fsp.readdir(dir, { withFileTypes: true });
+    const entries = (await fsp.readdir(dir, { withFileTypes: true }))
+      .sort((a, b) => a.name.localeCompare(b.name));
     for (const entry of entries) {
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
