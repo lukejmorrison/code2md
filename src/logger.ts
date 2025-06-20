@@ -64,10 +64,7 @@ export class Logger implements vscode.Disposable {
    */
   public sanitizePath(p: string): string {
     const folder = this.getWorkspaceFolderOrWarn();
-    if (folder) {
-      return path.relative(folder.uri.fsPath, p).split(path.sep).join("/");
-    }
-    return path.basename(p);
+    return sanitizePath(p, folder?.uri.fsPath);
   }
 
   /**
