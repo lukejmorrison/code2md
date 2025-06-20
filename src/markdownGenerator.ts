@@ -58,6 +58,9 @@ export async function generateMarkdown(
   if (!folder) {
     throw new Error("No workspace folder open. Cannot generate markdown.");
   }
+  if (files.length === 0) {
+    throw new Error("The 'files' array is empty. Cannot generate markdown.");
+  }
 
   const outputPath = getOutputPath(files, loggerInstance);
   const projectName = folder.name.replace(/[^\w\s-]/g, "");
