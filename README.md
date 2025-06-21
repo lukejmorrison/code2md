@@ -2,12 +2,12 @@
 
 The Code2Markdown Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
-## What's New (v1.1.x)
-- **Improved Cleanup**: New scripts for cleaning up unneeded files and preparing your workspace (`prebuildcleanupscript.ps1`, `cleanup_unneeded_files.ps1`).
-- **Streamlined Publishing**: Enhanced publishing script (`publish_vsce.ps1`) for easier marketplace and GitHub releases.
-- **Bug Fixes**: TypeScript errors resolved, improved path handling, and more robust logging.
-- **Better .gitignore**: Now excludes more generated and temporary files by default.
+## What's New (v1.1.4)
 - **Exclusion Functionality**: Use a `.code2mdignore` file to exclude files and folders from Markdown generation.
+- **Bug Fixes & Improvements**: TypeScript errors resolved, improved path handling, and more robust logging.
+- **Better .gitignore**: Now excludes more generated and temporary files by default.
+
+> **Note:** PowerShell scripts for cleanup and publishing are not included in the repository and are not required for normal extension usage or publishing. All build and publish steps are handled by standard npm and VSCE commands.
 
 ## Excluding Files and Folders from Markdown Generation
 
@@ -165,9 +165,9 @@ The generated Markdown includes:
 
 ## Workspace Cleanup & Publishing
 
-- **Cleanup Before Publishing**: Run `prebuildcleanupscript.ps1` to move temp/log files to backup, clean dependencies, and generate a build checklist.
-- **Remove Unneeded Files**: Run `cleanup_unneeded_files.ps1` to delete old VSIX, backup, codereview, examples, and test scripts.
-- **Publish**: Use `publish_vsce.ps1` to build, package, and publish to the VS Code Marketplace and GitHub.
+- **Cleanup Before Publishing**: Use your own local scripts or manual steps to move temp/log files to backup, clean dependencies, and generate a build checklist if needed.
+- **Remove Unneeded Files**: Use your own local scripts or manual steps to delete old VSIX, backup, codereview, examples, and test scripts if needed.
+- **Publish**: Use `vsce` to build, package, and publish to the VS Code Marketplace and GitHub.
 
 ## Troubleshooting
 - **Log Files**: Check detailed logs in the `codereview` folder (e.g., `codereview/2025-03-19_0257PM_MyProject_v01.log`).
@@ -197,9 +197,6 @@ The generated Markdown includes:
   ├── .vscode/             # VS Code settings
   ├── package.json         # Project configuration and dependencies
   ├── tsconfig.json        # TypeScript compiler configuration
-  ├── prebuildcleanupscript.ps1   # Pre-publish cleanup script
-  ├── cleanup_unneeded_files.ps1  # Remove unneeded files
-  ├── publish_vsce.ps1           # Build and publish script
   └── README.md            # Project documentation
   ```
 
