@@ -15,6 +15,11 @@ codereview/
 # Exclude .ps1 files used for staging and publishing
 *.ps1
 
+# Exclude PowerShell scripts containing sensitive data
+prebuildcleanupscript.ps1
+publish_vsce.ps1
+cleanup_unneeded_files.ps1
+
 # Exclude folders
 examples/
 logfiles/
