@@ -3,52 +3,32 @@
 The Code2Markdown Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
 ## What's New (v1.1.4)
-- **Exclusion Functionality**: Use a `.code2mdignore` file to exclude files and folders from Markdown generation.
+- **Configurable Exclusion Patterns**: You can now configure ignore patterns for Markdown generation directly in VS Code settings (`code2md.ignorePatterns`).
 - **Bug Fixes & Improvements**: TypeScript errors resolved, improved path handling, and more robust logging.
 - **Better .gitignore**: Now excludes more generated and temporary files by default.
 
-> **Note:** PowerShell scripts for cleanup and publishing are not included in the repository and are not required for normal extension usage or publishing. All build and publish steps are handled by standard npm and VSCE commands.
-
 ## Excluding Files and Folders from Markdown Generation
 
-You can control which files and folders are excluded from Markdown generation by creating a `.code2mdignore` file in the root of your workspace. This works similarly to `.gitignore`.
+You can configure which files and folders to exclude from Markdown generation through VS Code settings:
 
-### How to Use `.code2mdignore`
-1. **Create a `.code2mdignore` file** in the root of your project (next to your `package.json`).
-2. **Add patterns** for files and folders you want to exclude. For example:
+1. Click the **cog icon** in the lower-left corner of VS Code and select **Settings**.
+2. Search for `code2md.ignorePatterns`.
+3. Add patterns in the same format as `.gitignore`. For example:
    ```
-   # Ignore all test files
+   node_modules
    test/
-   *.spec.ts
-   *.test.js
-
-   # Ignore build output
+   *.log
    out/
-   dist/
-
-   # Ignore specific files
    secret-config.json
    ```
-3. **Save the file.** The extension will automatically respect these exclusions when generating Markdown.
+4. Save your settings. These exclusions will apply when generating Markdown.
 
-- Patterns support glob syntax (e.g., `*.log`, `folder/**`, etc.).
-- You can comment lines with `#`.
-- Exclusions apply to both file and folder selection modes.
+- Patterns support glob syntax (e.g., `*.log`, `folder/**`).
+- Default exclusions include `node_modules`, `.git`, `out`, etc.
 
-### Example
-```
-# Exclude all log and temp files
-*.log
-*.tmp
-
-# Exclude node_modules and build output
-node_modules/
-out/
-
-# Exclude test and backup folders
-backup/
-test/
-```
+### .gitignore vs. code2md.ignorePatterns
+- `.gitignore` affects version control (Git).
+- `code2md.ignorePatterns` affects which files are included in Markdown generation by the extension.
 
 ## Why use Code2Markdown?
 

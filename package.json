@@ -58,6 +58,23 @@
                     "when": "explorerResourceIsFolder && explorerResourceIsRoot"
                 }
             ]
+        },
+        "configuration": {
+            "title": "Code2Markdown",
+            "properties": {
+                "code2md.ignorePatterns": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "default": [
+                        "node_modules",
+                        ".git",
+                        "out",
+                        "dist",
+                        "*.log"
+                    ],
+                    "description": "Patterns for files and folders to ignore when generating Markdown. Use the same format as .gitignore."
+                }
+            }
         }
     },
     "scripts": {
