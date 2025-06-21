@@ -2,6 +2,7 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import { promises as fsp } from "fs";
+import { sanitizePath } from "./utils";
 
 /**
  * A robust logging utility for VS Code extensions.
@@ -64,7 +65,7 @@ export class Logger implements vscode.Disposable {
    */
   public sanitizePath(p: string): string {
     const folder = this.getWorkspaceFolderOrWarn();
-    return sanitizePath(p, folder?.uri.fsPath);
+    return sanitizePath(p);
   }
 
   /**

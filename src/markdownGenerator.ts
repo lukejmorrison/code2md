@@ -64,7 +64,7 @@ export async function generateMarkdown(
     throw new Error("The 'files' array is empty. Cannot generate markdown.");
   }
 
-  const outputPath = getOutputPath(files, loggerInstance);
+  const outputPath = await getOutputPath(files, loggerInstance);
   const projectName = folder.name.replace(/[^\w\s-]/g, "");
 
   const header =
