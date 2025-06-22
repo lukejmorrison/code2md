@@ -188,6 +188,21 @@ export class Logger implements vscode.Disposable {
   }
 
   /**
+   * Logs a list of ignored files or folders based on ignore settings.
+   * @param ignored Array of file or folder paths that were ignored.
+   */
+  public logIgnoredItems(ignored: string[]): void {
+    if (!ignored || ignored.length === 0) {
+      this.log("No files or folders were ignored based on the ignore settings.", "INFO");
+      return;
+    }
+    this.log(
+      `Ignored files/folders based on ignore settings:\n${ignored.map((p) => `- ${this.sanitizePath(p)}`).join("\n")}`,
+      "INFO"
+    );
+  }
+
+  /**
    * Disposes the output channel. Call this during extension deactivation.
    */
   public dispose(): void {
