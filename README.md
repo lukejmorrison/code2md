@@ -2,7 +2,7 @@
 
 The Code2Markdown Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
-## What's New (v1.1.13)
+## What's New (v1.1.14)
 - **PowerShell Script Fixes**: Publishing script now robustly updates all version numbers and avoids PowerShell `-replace` errors. All version bumping and file updates are now reliable and error-free.
 - **Improved Version Consistency**: The extension and scripts now ensure that `package.json`, `package-lock.json`, and `README.md` always have matching version numbers before publishing.
 - **Ignore Logic and Logging**: Enhanced ignore/exclusion logic and logging for ignored files/folders during Markdown generation.
@@ -22,9 +22,9 @@ You can configure which files and folders to exclude from Markdown generation th
    *.log
    out/
    secret-config.json
-   my-subfolder/**
+   backup/**
    ```
-   - To exclude a subfolder and all its contents, use the pattern `my-subfolder/**` (replace `my-subfolder` with your folder name).
+   - To exclude a subfolder and all its contents, use the pattern `backup/**` (replace `backup` with your folder name).
 4. Save your settings. These exclusions will apply when generating Markdown.
 
 - Patterns support glob syntax (e.g., `*.log`, `folder/**`).
@@ -33,6 +33,73 @@ You can configure which files and folders to exclude from Markdown generation th
 ### .gitignore vs. code2md.ignorePatterns
 - `.gitignore` affects version control (Git).
 - `code2md.ignorePatterns` affects which files are included in Markdown generation by the extension.
+
+### Detailed Exclusion Patterns
+
+To give you more control over which files and folders are included in the generated Markdown, Code2Markdown supports a variety of exclusion patterns. These patterns are similar to those used in `.gitignore` files and allow you to specify exactly what should be ignored. Below, you'll find detailed explanations and examples of each pattern type.
+
+#### 1. File or Directory Names
+- **Description**: Directly specify a file or directory to ignore.
+- **Examples**:
+  - `secret.txt`: Ignores a file named `secret.txt`.
+  - `build/`: Ignores a directory named `build`.
+- **Usage**: Use this to exclude specific files or directories that you know should not be included in the Markdown output.
+
+#### 2. Wildcards (`*`)
+- **Description**: Match any sequence of characters within a single directory.
+- **Examples**:
+  - `*.log`: Ignores all files with the `.log` extension.
+  - `temp/*`: Ignores all files directly inside the `temp` directory.
+- **Usage**: Useful for excluding all files of a certain type or all files in a specific directory.
+
+#### 3. Recursive Wildcards (`**`)
+- **Description**: Match directories and their contents recursively.
+- **Examples**:
+  - `node_modules/**`: Ignores the entire `node_modules` directory and its contents.
+  - `**/dist/`: Ignores any directory named `dist` at any level.
+- **Usage**: Ideal for excluding entire directory trees, such as dependency folders or build outputs.
+
+#### 4. Negation (`!`)
+- **Description**: Include files that would otherwise be ignored.
+- **Examples**:
+  - `!important.config`: Ensures `important.config` is not ignored, even if it matches another pattern.
+- **Usage**: Use this to make exceptions for specific files that should be included despite broader ignore rules.
+
+#### 5. Directory-Specific Patterns
+- **Description**: Limit patterns to specific directories.
+- **Examples**:
+  - `logs/*.log`: Ignores `.log` files only in the `logs` directory.
+  - `src/**/*.ts`: Ignores `.ts` files in `src` and its subdirectories.
+- **Usage**: Useful for excluding files of a certain type only within specific directories.
+
+#### 6. Anchored Patterns (`/`)
+- **Description**: Match only at the root of the workspace.
+- **Examples**:
+  - `/config.json`: Ignores only the `config.json` file in the root directory.
+  - `/build/`: Ignores only the `build` directory in the root directory.
+- **Usage**: Use this to exclude files or directories only at the top level of your project.
+
+#### 7. Character Classes (`[ ]`)
+- **Description**: Match specific characters or ranges.
+- **Examples**:
+  - `file[0-9].txt`: Ignores files like `file1.txt`, `file2.txt`, etc.
+  - `image.[png|jpg]`: Ignores `image.png` and `image.jpg`.
+- **Usage**: Useful for excluding files with names following a specific pattern.
+
+#### 8. Range Negation (`[^ ]`)
+- **Description**: Match characters not in the specified set.
+- **Examples**:
+  - `[^a-z].txt`: Ignores files that don't start with a lowercase letter.
+- **Usage**: Use this to exclude files that don't match a certain naming convention.
+
+#### 9. Escaping Special Characters (`\`)
+- **Description**: Match special characters literally.
+- **Examples**:
+  - `\*.txt`: Ignores a file named `*.txt`.
+  - `logs[\[]`: Ignores a directory named `logs[`.
+- **Usage**: Necessary when you need to exclude files or directories with names containing special characters.
+
+**Note on Pattern Order**: Patterns are applied in the order they appear in the `code2md.ignorePatterns` setting. Later patterns can override earlier ones, especially when using negation (`!`).
 
 ## Why use Code2Markdown?
 
