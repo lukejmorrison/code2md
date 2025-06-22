@@ -1,158 +1,159 @@
-{    "name": "code2markdown-wizwam",
-    "displayName": "Code2Markdown by Wizwam",
-    "description": "Code2Markdown - A tool for efficently communicating with AI",
-    "version": "1.1.9",
-    "publisher": "WIZWAM",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/lukejmorrison/code2md"
-    },
-    "icon": "images/code2md-icon.png",
-    "readme": "README.md",
-    "author": {
-        "name": "Luke Morrison",
-        "url": "https://github.com/lukejmorrison"
-    },
-    "license": "MIT",
-    "keywords": [
-        "markdown",
-        "code",
-        "AI",
-        "documentation",
-        "converter"
+{
+  "name": "code2markdown-wizwam",
+  "displayName": "Code2Markdown by Wizwam",
+  "description": "Code2Markdown - A tool for efficiently communicating with AI",
+  "version": "1.1.11",
+  "publisher": "WIZWAM",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukejmorrison/code2md"
+  },
+  "icon": "images/code2md-icon.png",
+  "readme": "README.md",
+  "author": {
+    "name": "Luke Morrison",
+    "url": "https://github.com/lukejmorrison"
+  },
+  "license": "MIT",
+  "keywords": [
+    "markdown",
+    "code",
+    "AI",
+    "documentation",
+    "converter"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onCommand:code2md.generateMarkdown",
+    "onCommand:code2md.generateMarkdownContext",
+    "onCommand:code2md.generateMarkdownFromFolder"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "code2md.generateMarkdown",
+        "title": "Generate Markdown from Files"
+      },
+      {
+        "command": "code2md.generateMarkdownContext",
+        "title": "Code2md - Generate Markdown from Selected Files"
+      },
+      {
+        "command": "code2md.generateMarkdownFromFolder",
+        "title": "Generate Markdown from Folder"
+      }
     ],
-    "engines": {
-        "vscode": "^1.85.0"
-    },
-    "categories": ["Other"],
-    "main": "./out/extension.js",
-    "activationEvents": [
-        
-        
-    ],
-    "contributes": {
-        "commands": [
-            {
-                "command": "code2md.generateMarkdown",
-                "title": "Generate Markdown from Files"
-            },
-            {
-                "command": "code2md.generateMarkdownContext",
-                "title": "Code2md - Generate Markdown from Selected Files"
-            },
-            {
-                "command": "code2md.generateMarkdownFromFolder",
-                "title": "Generate Markdown from Folder"
-            }
-        ],
-        "menus": {
-            "explorer/context": [
-                {
-                    "command": "code2md.generateMarkdownContext",
-                    "group": "navigation",
-                    "when": "resourceScheme == file"
-                },
-                {
-                    "command": "code2md.generateMarkdownContext",
-                    "group": "navigation",
-                    "when": "explorerResourceIsFolder && explorerResourceIsRoot"
-                }
-            ]
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "code2md.generateMarkdownContext",
+          "group": "navigation",
+          "when": "resourceScheme == file"
         },
-        "configuration": {
-            "title": "Code2Markdown",
-            "properties": {
-                "code2md.ignorePatterns": {
-                    "type": "array",
-                    "items": { "type": "string" },
-                    "default": [
-                        "node_modules",
-                        ".git",
-                        "out",
-                        "dist",
-                        "*.log"
-                    ],
-                    "description": "Patterns for files and folders to ignore when generating Markdown. Use the same format as .gitignore."
-                },
-                "code2md.ignoredDirs": {
-                    "type": "array",
-                    "items": { "type": "string" },
-                    "default": [
-                        "node_modules",
-                        ".git",
-                        ".vs",
-                        ".idea",
-                        "bin",
-                        "obj",
-                        "dist",
-                        "build",
-                        "target",
-                        "venv",
-                        ".venv",
-                        "__pycache__",
-                        "coverage",
-                        "logs",
-                        "log"
-                    ],
-                    "description": "Default directories to ignore when scanning a workspace folder."
-                },
-                "code2md.defaultExtensions": {
-                    "type": "array",
-                    "items": { "type": "string" },
-                    "default": [
-                        "ts",
-                        "js",
-                        "jsx",
-                        "tsx",
-                        "py",
-                        "java",
-                        "cpp",
-                        "hpp",
-                        "c",
-                        "h",
-                        "cs",
-                        "go",
-                        "rs",
-                        "php",
-                        "rb",
-                        "swift",
-                        "kt",
-                        "html",
-                        "css",
-                        "scss",
-                        "json",
-                        "yaml",
-                        "yml",
-                        "md",
-                        "txt",
-                        "xml",
-                        "sql",
-                        "sh",
-                        "bash",
-                        "ps1",
-                        "mk"
-                    ],
-                    "description": "Default file extensions to include when scanning folders."
-                }
-            }
+        {
+          "command": "code2md.generateMarkdownContext",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder && explorerResourceIsRoot"
         }
+      ]
     },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./"
-    },
-    "devDependencies": {
-        "@types/node": "^18.x",
-        "@types/vscode": "^1.85.0",
-        "typescript": "^5.3.3"
-    },
-    "packages": {
-        "": {
-            "name": "code2markdown-wizwam",
-            "version": "1.1.9"
+    "configuration": {
+      "title": "Code2Markdown",
+      "properties": {
+        "code2md.ignorePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "node_modules",
+            ".git",
+            "out",
+            "dist",
+            "*.log"
+          ],
+          "description": "Patterns for files and folders to ignore when generating Markdown. Use the same format as .gitignore."
+        },
+        "code2md.ignoredDirs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "node_modules",
+            ".git",
+            ".vs",
+            ".idea",
+            "bin",
+            "obj",
+            "dist",
+            "build",
+            "target",
+            "venv",
+            ".venv",
+            "__pycache__",
+            "coverage",
+            "logs",
+            "log"
+          ],
+          "description": "Default directories to ignore when scanning a workspace folder."
+        },
+        "code2md.defaultExtensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "ts",
+            "js",
+            "jsx",
+            "tsx",
+            "py",
+            "java",
+            "cpp",
+            "hpp",
+            "c",
+            "h",
+            "cs",
+            "go",
+            "rs",
+            "php",
+            "rb",
+            "swift",
+            "kt",
+            "html",
+            "css",
+            "scss",
+            "json",
+            "yaml",
+            "yml",
+            "md",
+            "txt",
+            "xml",
+            "sql",
+            "sh",
+            "bash",
+            "ps1",
+            "mk"
+          ],
+          "description": "Default file extensions to include when scanning folders."
         }
+      }
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.x",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3",
+    "ignore": "^7.0.5"
+  }
 }
-
-
