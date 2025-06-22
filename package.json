@@ -1,7 +1,7 @@
 {    "name": "code2markdown-wizwam",
     "displayName": "Code2Markdown by Wizwam",
     "description": "Code2Markdown - A tool for efficently communicating with AI",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "publisher": "WIZWAM",
     "repository": {
         "type": "git",
@@ -73,6 +73,66 @@
                         "*.log"
                     ],
                     "description": "Patterns for files and folders to ignore when generating Markdown. Use the same format as .gitignore."
+                },
+                "code2md.ignoredDirs": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "default": [
+                        "node_modules",
+                        ".git",
+                        ".vs",
+                        ".idea",
+                        "bin",
+                        "obj",
+                        "dist",
+                        "build",
+                        "target",
+                        "venv",
+                        ".venv",
+                        "__pycache__",
+                        "coverage",
+                        "logs",
+                        "log"
+                    ],
+                    "description": "Default directories to ignore when scanning a workspace folder."
+                },
+                "code2md.defaultExtensions": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "default": [
+                        "ts",
+                        "js",
+                        "jsx",
+                        "tsx",
+                        "py",
+                        "java",
+                        "cpp",
+                        "hpp",
+                        "c",
+                        "h",
+                        "cs",
+                        "go",
+                        "rs",
+                        "php",
+                        "rb",
+                        "swift",
+                        "kt",
+                        "html",
+                        "css",
+                        "scss",
+                        "json",
+                        "yaml",
+                        "yml",
+                        "md",
+                        "txt",
+                        "xml",
+                        "sql",
+                        "sh",
+                        "bash",
+                        "ps1",
+                        "mk"
+                    ],
+                    "description": "Default file extensions to include when scanning folders."
                 }
             }
         }
@@ -90,7 +150,7 @@
     "packages": {
         "": {
             "name": "code2markdown-wizwam",
-            "version": "1.1.5"
+            "version": "1.1.6"
         }
     }
 }

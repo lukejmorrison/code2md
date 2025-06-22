@@ -1,7 +1,7 @@
 // src/utils.ts
 import * as vscode from "vscode";
 import * as path from "path";
-import { LANGUAGE_MAP } from "./config";
+import { LANGUAGE_MAP, getDefaultIgnoredDirs, getDefaultExtensions } from "./config";
 import { Logger } from "./logger"; // Assuming logger is globally available or passed
 
 let globalLogger: Logger; // Declare a variable to hold the logger instance
@@ -12,12 +12,23 @@ export function setGlobalLogger(loggerInstance: Logger) {
 
 /**
  * Retrieves the list of folders to ignore from user settings,
- * falling back to DEFAULT_IGNORED_DIRS.
+ * falling back to code2md.ignoredDirs setting.
  */
 export function getIgnoredFolders(): string[] {
   const config = vscode.workspace.getConfiguration("code2md");
   const ignorePatterns = config.get<string[]>("ignorePatterns", []);
-  return ignorePatterns.map((pattern) => pattern.split("/")[0].replace(/^\*\./, ""));
+  if (ignorePatterns.length > 0) {
+    return ignorePatterns.map((pattern) => pattern.split("/")[0].replace(/^\*\./, ""));
+  }
+  return getDefaultIgnoredDirs();
+}
+
+/**
+ * Retrieves the list of file extensions to include from user settings,
+ * falling back to code2md.defaultExtensions setting.
+ */
+export function getIncludedExtensions(): string[] {
+  return getDefaultExtensions();
 }
 
 /**

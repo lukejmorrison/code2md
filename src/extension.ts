@@ -1,8 +1,7 @@
 // src/extension.ts
 import * as vscode from "vscode";
 import { Logger } from "./logger";
-import { setGlobalLogger } from "./utils";
-import { DEFAULT_EXTENSIONS } from "./config";
+import { setGlobalLogger, getIncludedExtensions } from "./utils";
 import { getIgnoredFolders } from "./utils";
 import { findFilesRecursivelyAsync } from "./fileScanner";
 import { generateMarkdown } from "./markdownGenerator";
@@ -68,7 +67,7 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
 
-      const defaultExtList = DEFAULT_EXTENSIONS.join(",");
+      const defaultExtList = (await getIncludedExtensions()).join(",");
       const input = await vscode.window.showInputBox({
         prompt: "Enter file extensions (comma-separated)",
         value: defaultExtList,
@@ -155,7 +154,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         const filesToProcess: vscode.Uri[] = [];
         const ignoredFolders = getIgnoredFolders();
-        const extensions = DEFAULT_EXTENSIONS;
+        const extensions = getIncludedExtensions();
 
         logger.log(
           `Processing ${selectedUris.length} items from context menu...`,

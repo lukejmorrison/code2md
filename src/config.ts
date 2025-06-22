@@ -1,62 +1,70 @@
 // src/config.ts
 
 /**
- * Default directories to ignore when scanning a workspace folder.
+ * Get default ignored directories from VS Code settings.
  */
-export const DEFAULT_IGNORED_DIRS = [
-  "node_modules",
-  ".git",
-  ".vs",
-  ".idea",
-  "bin",
-  "obj",
-  "dist",
-  "build",
-  "target",
-  "venv",
-  ".venv",
-  "__pycache__",
-  "coverage",
-  "logs",
-  "log",
-];
+import * as vscode from "vscode";
+
+export function getDefaultIgnoredDirs(): string[] {
+  const config = vscode.workspace.getConfiguration("code2md");
+  return config.get<string[]>("ignoredDirs", [
+    "node_modules",
+    ".git",
+    ".vs",
+    ".idea",
+    "bin",
+    "obj",
+    "dist",
+    "build",
+    "target",
+    "venv",
+    ".venv",
+    "__pycache__",
+    "coverage",
+    "logs",
+    "log",
+  ]);
+}
 
 /**
- * Default file extensions to include when scanning folders.
+ * Get default file extensions from VS Code settings.
  */
-export const DEFAULT_EXTENSIONS = [
-  "ts",
-  "js",
-  "jsx",
-  "tsx",
-  "py",
-  "java",
-  "cpp",
-  "hpp",
-  "c",
-  "h",
-  "cs",
-  "go",
-  "rs",
-  "php",
-  "rb",
-  "swift",
-  "kt",
-  "html",
-  "css",
-  "scss",
-  "json",
-  "yaml",
-  "yml",
-  "md",
-  "txt",
-  "xml",
-  "sql",
-  "sh",
-  "bash",
-  "ps1",
-  "mk",
-];
+export function getDefaultExtensions(): string[] {
+  const config = vscode.workspace.getConfiguration("code2md");
+  return config.get<string[]>("defaultExtensions", [
+    "ts",
+    "js",
+    "jsx",
+    "tsx",
+    "py",
+    "java",
+    "cpp",
+    "hpp",
+    "c",
+    "h",
+    "cs",
+    "go",
+    "rs",
+    "php",
+    "rb",
+    "swift",
+    "kt",
+    "html",
+    "css",
+    "scss",
+    "json",
+    "yaml",
+    "yml",
+    "md",
+    "txt",
+    "xml",
+    "sql",
+    "sh",
+    "bash",
+    "ps1",
+    "mk",
+  ]);
+}
 
 /**
  * Map from file extension to Markdown code-block language identifier.

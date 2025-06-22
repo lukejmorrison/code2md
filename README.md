@@ -2,8 +2,9 @@
 
 The Code2Markdown Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
-## What's New (v1.1.5)
+## What's New (v1.1.6)
 - **Configurable Exclusion Patterns**: You can now configure ignore patterns for Markdown generation directly in VS Code settings (`code2md.ignorePatterns`).
+- **All default ignored directories and file extensions are now configurable via VS Code settings (`code2md.ignoredDirs` and `code2md.defaultExtensions`). The extension no longer uses hardcoded values, making it easy for users to customize these defaults.**
 - **Bug Fixes & Improvements**: TypeScript errors resolved, improved path handling, and more robust logging.
 - **Better .gitignore**: Now excludes more generated and temporary files by default.
 - **Documentation Update**: Added a clear example for excluding a subfolder and all its contents using the `my-subfolder/**` pattern in the ignore settings section.
