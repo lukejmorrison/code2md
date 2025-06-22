@@ -2,12 +2,12 @@
 
 The Code2Markdown Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
-## What's New (v1.1.11)
-- **Configurable Exclusion Patterns**: You can now configure ignore patterns for Markdown generation directly in VS Code settings (`code2md.ignorePatterns`).
-- **All default ignored directories and file extensions are now configurable via VS Code settings (`code2md.ignoredDirs` and `code2md.defaultExtensions`). The extension no longer uses hardcoded values, making it easy for users to customize these defaults.**
-- **Bug Fixes & Improvements**: TypeScript errors resolved, improved path handling, and more robust logging.
-- **Better .gitignore**: Now excludes more generated and temporary files by default.
-- **Documentation Update**: Added a clear example for excluding a subfolder and all its contents using the `my-subfolder/**` pattern in the ignore settings section.
+## What's New (v1.1.13)
+- **PowerShell Script Fixes**: Publishing script now robustly updates all version numbers and avoids PowerShell `-replace` errors. All version bumping and file updates are now reliable and error-free.
+- **Improved Version Consistency**: The extension and scripts now ensure that `package.json`, `package-lock.json`, and `README.md` always have matching version numbers before publishing.
+- **Ignore Logic and Logging**: Enhanced ignore/exclusion logic and logging for ignored files/folders during Markdown generation.
+- **Documentation Improvements**: This README and in-extension documentation have been updated for clarity and accuracy.
+- **General Bug Fixes & Improvements**: Minor bug fixes and improved error handling in scripts and extension code.
 
 ## Excluding Files and Folders from Markdown Generation
 
