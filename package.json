@@ -27,11 +27,6 @@
   },
   "categories": ["Other"],
   "main": "./out/extension.js",
-  "activationEvents": [
-    "onCommand:code2md.generateMarkdown",
-    "onCommand:code2md.generateMarkdownContext",
-    "onCommand:code2md.generateMarkdownFromFolder"
-  ],
   "contributes": {
     "commands": [
       {

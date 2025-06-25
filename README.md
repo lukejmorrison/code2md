@@ -3,6 +3,7 @@
 The Code2Markdown Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
 ## What's New (v1.1.14)
+
 - **PowerShell Script Fixes**: Publishing script now robustly updates all version numbers and avoids PowerShell `-replace` errors. All version bumping and file updates are now reliable and error-free.
 - **Improved Version Consistency**: The extension and scripts now ensure that `package.json`, `package-lock.json`, and `README.md` always have matching version numbers before publishing.
 - **Ignore Logic and Logging**: Enhanced ignore/exclusion logic and logging for ignored files/folders during Markdown generation.
@@ -16,7 +17,8 @@ You can configure which files and folders to exclude from Markdown generation th
 1. Click the **cog icon** in the lower-left corner of VS Code and select **Settings**.
 2. Search for `code2md.ignorePatterns`.
 3. Add patterns in the same format as `.gitignore`. For example:
-   ```
+
+   ```bash
    node_modules
    test/
    *.log
@@ -24,6 +26,7 @@ You can configure which files and folders to exclude from Markdown generation th
    secret-config.json
    backup/**
    ```
+
    - To exclude a subfolder and all its contents, use the pattern `backup/**` (replace `backup` with your folder name).
 4. Save your settings. These exclusions will apply when generating Markdown.
 
@@ -31,6 +34,7 @@ You can configure which files and folders to exclude from Markdown generation th
 - Default exclusions include `node_modules`, `.git`, `out`, etc.
 
 ### .gitignore vs. code2md.ignorePatterns
+
 - `.gitignore` affects version control (Git).
 - `code2md.ignorePatterns` affects which files are included in Markdown generation by the extension.
 
@@ -39,6 +43,7 @@ You can configure which files and folders to exclude from Markdown generation th
 To give you more control over which files and folders are included in the generated Markdown, Code2Markdown supports a variety of exclusion patterns. These patterns are similar to those used in `.gitignore` files and allow you to specify exactly what should be ignored. Below, you'll find detailed explanations and examples of each pattern type.
 
 #### 1. File or Directory Names
+
 - **Description**: Directly specify a file or directory to ignore.
 - **Examples**:
   - `secret.txt`: Ignores a file named `secret.txt`.
@@ -46,6 +51,7 @@ To give you more control over which files and folders are included in the genera
 - **Usage**: Use this to exclude specific files or directories that you know should not be included in the Markdown output.
 
 #### 2. Wildcards (`*`)
+
 - **Description**: Match any sequence of characters within a single directory.
 - **Examples**:
   - `*.log`: Ignores all files with the `.log` extension.
@@ -53,6 +59,7 @@ To give you more control over which files and folders are included in the genera
 - **Usage**: Useful for excluding all files of a certain type or all files in a specific directory.
 
 #### 3. Recursive Wildcards (`**`)
+
 - **Description**: Match directories and their contents recursively.
 - **Examples**:
   - `node_modules/**`: Ignores the entire `node_modules` directory and its contents.
@@ -60,12 +67,14 @@ To give you more control over which files and folders are included in the genera
 - **Usage**: Ideal for excluding entire directory trees, such as dependency folders or build outputs.
 
 #### 4. Negation (`!`)
+
 - **Description**: Include files that would otherwise be ignored.
 - **Examples**:
   - `!important.config`: Ensures `important.config` is not ignored, even if it matches another pattern.
 - **Usage**: Use this to make exceptions for specific files that should be included despite broader ignore rules.
 
 #### 5. Directory-Specific Patterns
+
 - **Description**: Limit patterns to specific directories.
 - **Examples**:
   - `logs/*.log`: Ignores `.log` files only in the `logs` directory.
@@ -73,6 +82,7 @@ To give you more control over which files and folders are included in the genera
 - **Usage**: Useful for excluding files of a certain type only within specific directories.
 
 #### 6. Anchored Patterns (`/`)
+
 - **Description**: Match only at the root of the workspace.
 - **Examples**:
   - `/config.json`: Ignores only the `config.json` file in the root directory.
@@ -80,6 +90,7 @@ To give you more control over which files and folders are included in the genera
 - **Usage**: Use this to exclude files or directories only at the top level of your project.
 
 #### 7. Character Classes (`[ ]`)
+
 - **Description**: Match specific characters or ranges.
 - **Examples**:
   - `file[0-9].txt`: Ignores files like `file1.txt`, `file2.txt`, etc.
@@ -87,12 +98,14 @@ To give you more control over which files and folders are included in the genera
 - **Usage**: Useful for excluding files with names following a specific pattern.
 
 #### 8. Range Negation (`[^ ]`)
+
 - **Description**: Match characters not in the specified set.
 - **Examples**:
   - `[^a-z].txt`: Ignores files that don't start with a lowercase letter.
 - **Usage**: Use this to exclude files that don't match a certain naming convention.
 
 #### 9. Escaping Special Characters (`\`)
+
 - **Description**: Match special characters literally.
 - **Examples**:
   - `\*.txt`: Ignores a file named `*.txt`.
@@ -104,18 +117,21 @@ To give you more control over which files and folders are included in the genera
 ## Why use Code2Markdown?
 
 ### Benefits for AI Prompts
+
 - **Efficient Token Usage**: Markdown's lightweight syntax minimizes token counts, reducing costs with AI services.
 - **Easy for AI to Understand**: Plain-text format with language identifiers (e.g., ```python) helps AI parse code accurately.
 - **Organized and Readable**: Structure your codebase with headers and sections for clarity.
 - **Faster Processing**: Markdown requires no preprocessing, speeding up AI response times.
 
 ### How Code2Markdown Saves Time and Money
+
 - **One-Click Markdown Creation**: Automatically formats code into Markdown with proper code blocks.
 - **Token Optimization**: Clean output reduces token usage, lowering costs.
 - **Reduced Processing Time**: Structured Markdown helps AI understand your code faster.
 - **Cost Savings**: Lower token counts and quicker interactions save money for programmers using AI services.
 
 ## Features
+
 - Generate Markdown files from multiple files via the Command Palette or Explorer context menu.
 - **Table of Contents**: Automatically generates a TOC with links to each included file.
 - Unique file naming with timestamps and versioning to prevent overwrites.
@@ -135,9 +151,11 @@ You can install the Code2Markdown Extension directly from the VS Code Marketplac
 5. Click **Install**.
 
 Alternatively, you can install it via the VS Code Quick Open command:
+
 1. Open Quick Open with `Ctrl+P` (Windows/Linux) or `Cmd+P` (macOS).
 2. Paste the following command and press Enter:
-   ```
+
+   ```text
    ext install WIZWAM.Code2Markdown-Wizwam
    ```
 
@@ -147,23 +165,28 @@ To install and test the extension directly from the GitHub repository, follow th
 
 1. **Clone the Repository**:
    - Clone the repository to your local machine:
+
      ```bash
      git clone https://github.com/lukejmorrison/code2md.git
      ```
+
    - Alternatively, download the repository as a ZIP file and extract it to a folder named `code2md`.
 
 2. **Install Dependencies**:
    - Open a terminal in the `code2md` directory.
    - Run the following command to install the required dependencies:
+
      ```bash
      npm install
      ```
 
 3. **Compile the Extension**:
    - Compile the TypeScript code into JavaScript:
+
      ```bash
      npm run compile
      ```
+
    - Alternatively, use `npm run watch` to automatically recompile on changes.
 
 4. **Test the Extension in VS Code**:
@@ -174,12 +197,14 @@ To install and test the extension directly from the GitHub repository, follow th
 ## Usage
 
 ### Using the Command Palette
+
 1. Open the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on macOS).
 2. Type `Generate Markdown from Files` and select it.
 3. Choose one or more files in the file picker.
 4. A Markdown file (e.g., `2023-10-25_0230PM_MyProject_v01.md`) will be created in the `codereview` folder.
 
 ### Using Folder Selection (Recommended for Multiple Files)
+
 1. Open the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on macOS).
 2. Type `Generate Markdown from Folder` and select it.
 3. Choose a folder containing the files you want to include.  
@@ -188,24 +213,30 @@ To install and test the extension directly from the GitHub repository, follow th
 5. The extension will recursively find all matching files and generate a Markdown file in the `codereview` folder.
 
 ### Using the Context Menu
+
 1. In the Explorer, select one or more files using `Ctrl+Click` (Windows/Linux) or `Cmd+Click` (macOS) for multiple selections.
 2. Right-click and choose `Generate Markdown from Selected Files`.
 3. A Markdown file with a Table of Contents and all selected files will be generated in the `codereview` folder:
-   ```
+
+   ```tree
    your-project/
    └── codereview/
        ├── 2025-03-19_0257PM_MyProject_v01.md    # Generated markdown file
        └── 2025-03-19_0257PM_MyProject_v01.log    # Corresponding log file
    ```
+
    **Note**: If multiple file selection doesn't work, use the "Generate Markdown from Folder" command instead.
 
 ### Output Format
+
 The generated Markdown includes:
+
 - A project title based on the workspace name.
 - A Table of Contents with links to each file section.
 - File sections with relative paths and syntax-highlighted code blocks.
 - All output files are stored in a `codereview` folder:
-  ```
+
+  ```tree
   your-project/
   ├── codereview/
   │   ├── 2025-03-19_0257PM_MyProject_v01.md    # Generated markdown file
@@ -221,6 +252,7 @@ The generated Markdown includes:
 - **Publish**: Use `vsce` to build, package, and publish to the VS Code Marketplace and GitHub.
 
 ## Troubleshooting
+
 - **Log Files**: Check detailed logs in the `codereview` folder (e.g., `codereview/2025-03-19_0257PM_MyProject_v01.log`).
 - **Output Location**: All generated files are stored in a `codereview` folder in your workspace.
 - **Output Panel**: Open the Output panel in VS Code (`Ctrl+Shift+U`), select "Extension Host," and look for `[code2md]` messages.
@@ -232,9 +264,11 @@ The generated Markdown includes:
   - **Cleanup Issues**: Use the provided PowerShell scripts to keep your workspace clean and avoid publishing unnecessary files.
 
 ## Development
+
 - **Build**: Run `npm run compile` or `npm run watch`.
 - **Folder Structure**:
-  ```
+
+  ```tree
   code2md/
   ├── src/                 # Source code
   │   └── extension.ts     # Main extension code
@@ -252,4 +286,5 @@ The generated Markdown includes:
   ```
 
 ## License
+
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
