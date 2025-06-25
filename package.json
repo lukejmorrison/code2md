@@ -2,7 +2,7 @@
   "name": "code2markdown-wizwam",
   "displayName": "Code2Markdown by Wizwam",
   "description": "Code2Markdown - A tool for efficiently communicating with AI",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "publisher": "WIZWAM",
   "repository": {
     "type": "git",
@@ -156,6 +156,7 @@
     "ignore": "^7.0.5"
   }
 }
+
 
 
 
