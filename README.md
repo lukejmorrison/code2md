@@ -2,12 +2,11 @@
 
 The Code2Markdown Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
-## What's New (v1.1.14)
+## What's New (v1.1.6)
 
-- **PowerShell Script Fixes**: Publishing script now robustly updates all version numbers and avoids PowerShell `-replace` errors. All version bumping and file updates are now reliable and error-free.
-- **Improved Version Consistency**: The extension and scripts now ensure that `package.json`, `package-lock.json`, and `README.md` always have matching version numbers before publishing.
-- **Ignore Logic and Logging**: Enhanced ignore/exclusion logic and logging for ignored files/folders during Markdown generation.
-- **Documentation Improvements**: This README and in-extension documentation have been updated for clarity and accuracy.
+- **Full Logging of Ignored Files/Folders**: All files and folders excluded by your ignore patterns are now logged and visible in the output/log file.
+- **Improved Error and Warning Messages**: The extension now provides clearer feedback if no files are found, no workspace is open, or unsupported extensions are selected.
+- **Better Context Menu and Folder Support**: Both commands now fully respect ignore patterns and log all exclusions.
 - **General Bug Fixes & Improvements**: Minor bug fixes and improved error handling in scripts and extension code.
 
 ## Excluding Files and Folders from Markdown Generation
@@ -32,6 +31,7 @@ You can configure which files and folders to exclude from Markdown generation th
 
 - Patterns support glob syntax (e.g., `*.log`, `folder/**`).
 - Default exclusions include `node_modules`, `.git`, `out`, etc.
+- **Ignored files/folders are now logged and can be reviewed in the output/log file.**
 
 ### .gitignore vs. code2md.ignorePatterns
 
