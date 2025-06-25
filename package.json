@@ -28,7 +28,8 @@
   "categories": ["Other"],
   "main": "./out/extension.js",
   "activationEvents": [
-    "*"
+    "onCommand:code2md.generateMarkdownFromFolder",
+    "onCommand:code2md.generateMarkdownContext"
   ],
   "contributes": {
     "commands": [
@@ -155,6 +156,7 @@
     "ignore": "^7.0.5"
   }
 }
+
 
 
 
