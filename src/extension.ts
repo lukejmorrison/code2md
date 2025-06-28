@@ -180,6 +180,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
       });
       if (!files?.length) {
+        vscode.window.showWarningMessage("No files selected.");
         return;
       }
 
@@ -190,15 +191,7 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
 
-      const filesToProcess: vscode.Uri[] = [];
-      for (const file of files) {
-        const ext = file.path.split(".").pop()?.toLowerCase();
-        if (ext && extensions.includes(ext)) {
-          filesToProcess.push(file);
-        } else {
-          logger.log(`Skipping file (unsupported extension): ${file.fsPath}`, "INFO");
-        }
-      }
+      const filesToProcess: vscode.Uri[] = files.map(file => file);
 
       if (filesToProcess.length === 0) {
         vscode.window.showWarningMessage("No matching files found.");
