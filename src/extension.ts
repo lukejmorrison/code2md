@@ -169,7 +169,61 @@ export function activate(context: vscode.ExtensionContext) {
     },
   );
 
-  context.subscriptions.push(fromFolder, fromContext);
+  const fromFiles = vscode.commands.registerCommand(
+    "code2md.generateMarkdown",
+    async () => {
+      const files = await vscode.window.showOpenDialog({
+        canSelectFiles: true,
+        canSelectMany: true,
+        filters: {
+          'All Files': ['*']
+        }
+      });
+      if (!files?.length) {
+        return;
+      }
+
+      const extensions = await getIncludedExtensions();
+      const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+      if (!workspaceRoot) {
+        vscode.window.showErrorMessage("No workspace folder open.");
+        return;
+      }
+
+      const filesToProcess: vscode.Uri[] = [];
+      for (const file of files) {
+        const ext = file.path.split(".").pop()?.toLowerCase();
+        if (ext && extensions.includes(ext)) {
+          filesToProcess.push(file);
+        } else {
+          logger.log(`Skipping file (unsupported extension): ${file.fsPath}`, "INFO");
+        }
+      }
+
+      if (filesToProcess.length === 0) {
+        vscode.window.showWarningMessage("No matching files found.");
+        logger.log("No matching files found in selected files.", "WARN");
+        return;
+      }
+
+      logger.log(`📄 ${filesToProcess.length} files selected for Markdown generation.`, "INFO");
+      await vscode.window.withProgress(
+        {
+          location: vscode.ProgressLocation.Notification,
+          title: "Generating Markdown…",
+          cancellable: false,
+        },
+        async (progress) => {
+          const out = await generateMarkdown(filesToProcess, progress, logger);
+          await logger.flushLogs();
+          const doc = await vscode.workspace.openTextDocument(out);
+          vscode.window.showTextDocument(doc);
+        },
+      );
+    },
+  );
+
+  context.subscriptions.push(fromFolder, fromContext, fromFiles);
 }
 
 export function deactivate() {
