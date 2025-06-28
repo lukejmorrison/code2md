@@ -79,35 +79,23 @@ export function activate(context: vscode.ExtensionContext) {
 
   const fromContext = vscode.commands.registerCommand(
     "code2md.generateMarkdownContext",
-    async (...args: any[]) => {
-      logger.log(`Context menu args received: ${JSON.stringify(args)}`, "INFO");
+    async (uri: vscode.Uri, uris: vscode.Uri[]) => {
+      // Log the received arguments for debugging
+      console.log("Received arguments - uri:", uri, "uris:", uris);
+      logger.log(
+        `Received uri: ${uri ? uri.fsPath : "none"}, uris: ${
+          uris ? uris.map(u => u.fsPath).join(", ") : "none"
+        }`,
+        "INFO"
+      );
 
-      // Attempt to get selected URIs from args
-      let selectedUris: vscode.Uri[] = [];
-      if (args.length > 0) {
-        if (args[0] instanceof vscode.Uri) {
-          selectedUris = [args[0]];
-        } else if (Array.isArray(args[0])) {
-          selectedUris = args[0].filter((item: any) => item instanceof vscode.Uri);
-        } else if (Array.isArray(args)) {
-          selectedUris = args.filter((item: any) => item instanceof vscode.Uri);
-        }
-      }
-
-      // Fallback: Try to get selection from Explorer (not directly supported, but we can log for debugging)
-      if (selectedUris.length === 0) {
-        logger.log("No URIs found in args. Falling back to active selection.", "WARN");
-        // Note: VS Code doesn't provide a direct API for Explorer selection.
-        // This is a limitation, and we rely on args for now.
-      }
-
+      // Determine the list of URIs to process
+      const selectedUris = uris && uris.length > 0 ? uris : uri ? [uri] : [];
       if (!selectedUris || selectedUris.length === 0) {
         vscode.window.showWarningMessage("No files or folders selected.");
         logger.log("No files or folders selected via context menu.", "WARN");
         return;
       }
-
-      logger.log(`Processing ${selectedUris.length} selected URIs: ${selectedUris.map(uri => uri.fsPath).join(", ")}` , "INFO");
 
       const filesToProcess: vscode.Uri[] = [];
       const extensions = await getIncludedExtensions();
