@@ -182,17 +182,15 @@ export function activate(context: vscode.ExtensionContext) {
   const fromFiles = vscode.commands.registerCommand(
     "code2md.generateMarkdown",
     async () => {
-      const files = await vscode.window.showOpenDialog({
-        canSelectFiles: true,
-        canSelectMany: true,
-        filters: {
-          'All Files': ['*']
-        }
+      // Show user choice: Files or Folders
+      const choice = await vscode.window.showQuickPick([
+        { label: "📄 Select Files", value: "files" },
+        { label: "📁 Select Folder", value: "folder" }
+      ], {
+        placeHolder: "What would you like to select?"
       });
-      if (!files?.length) {
-        vscode.window.showWarningMessage("No files selected.");
-        return;
-      }
+
+      if (!choice) return;
 
       const extensions = await getIncludedExtensions();
       const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
@@ -201,12 +199,66 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
 
-      const filesToProcess: vscode.Uri[] = files.map(file => file);
+      let filesToProcess: vscode.Uri[] = [];
 
-      if (filesToProcess.length === 0) {
-        vscode.window.showWarningMessage("No matching files found.");
-        logger.log("No matching files found in selected files.", "WARN");
-        return;
+      if (choice.value === "files") {
+        // Select individual files
+        const files = await vscode.window.showOpenDialog({
+          canSelectFiles: true,
+          canSelectMany: true,
+          filters: {
+            'Supported Files': extensions.map(ext => ext),
+            'All Files': ['*']
+          }
+        });
+        
+        if (!files?.length) {
+          vscode.window.showWarningMessage("No files selected.");
+          return;
+        }
+
+        // Filter by supported extensions
+        filesToProcess = files.filter(file => {
+          const ext = file.path.split(".").pop()?.toLowerCase();
+          return ext && extensions.includes(ext);
+        });
+
+        if (filesToProcess.length === 0) {
+          vscode.window.showWarningMessage("No supported files selected.");
+          return;
+        }
+      } else {
+        // Select folder(s)
+        const folders = await vscode.window.showOpenDialog({
+          canSelectFolders: true,
+          canSelectMany: true,
+        });
+        
+        if (!folders?.length) {
+          vscode.window.showWarningMessage("No folders selected.");
+          return;
+        }
+
+        // Scan all selected folders
+        const ignoredItems: string[] = [];
+        for (const folder of folders) {
+          logger.log(`Scanning folder: ${folder.fsPath}`, "INFO");
+          const { files: foundFiles, ignored } = await findFilesRecursivelyAsync(
+            folder.fsPath,
+            extensions,
+            filesToProcess,
+            logger,
+            workspaceRoot
+          );
+          ignoredItems.push(...ignored);
+        }
+
+        logger.logIgnoredItems(ignoredItems);
+
+        if (filesToProcess.length === 0) {
+          vscode.window.showWarningMessage("No matching files found in selected folders.");
+          return;
+        }
       }
 
       logger.log(`📄 ${filesToProcess.length} files selected for Markdown generation.`, "INFO");
