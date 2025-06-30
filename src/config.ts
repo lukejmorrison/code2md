@@ -23,6 +23,7 @@ export function getDefaultIgnoredDirs(): string[] {
     "coverage",
     "logs",
     "log",
+    "**/codereview/",
   ]);
 }
 
