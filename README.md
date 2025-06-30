@@ -2,7 +2,7 @@
 
 The Code2Markdown Extension lets you convert selected code files in VS Code into a single Markdown file. Each file's content is wrapped in a syntax-highlighted code block, making it ideal for documentation, sharing, or archiving code snippets. It's especially useful for preparing code in an AI-friendly format for prompts.
 
-## What's New (v1.1.24)
+## What's New (v1.1.25)
 
 - **Full Logging of Ignored Files/Folders**: All files and folders excluded by your ignore patterns are now logged and visible in the output/log file.
 - **Improved Error and Warning Messages**: The extension now provides clearer feedback if no files are found, no workspace is open, or unsupported extensions are selected.
@@ -244,6 +244,15 @@ The generated Markdown includes:
   ├── src/
   └── ...
   ```
+
+## VS Code Selection Limitations
+
+**Important:** Due to limitations in the VS Code API, you cannot select both files and folders at the same time in a single dialog. When using the Command Palette command `Code2MD: Generate from Files or Folders`, you will be prompted to choose either files or folders, not both. If you select both files and folders in the Explorer and use the context menu, only files will be processed.
+
+- The file picker allows multiple file selection, but not folders at the same time.
+- The folder picker allows multiple folder selection, but not files at the same time.
+- The context menu command (`Code2MD: Generate from Selection (If both file and folders are selected only files will be processed) (Context Menu)`) will process only files if both files and folders are selected.
+- This is a limitation of the VS Code API and not the extension itself.
 
 ## Workspace Cleanup & Publishing
 

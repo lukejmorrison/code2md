@@ -2,7 +2,7 @@
   "name": "code2markdown-wizwam",
   "displayName": "Code2Markdown by Wizwam",
   "description": "Code2Markdown - A tool for efficiently communicating with AI",
-  "version": "1.1.24",
+  "version": "1.1.25",
   "publisher": "WIZWAM",
   "repository": {
     "type": "git",
@@ -35,7 +35,7 @@
       },
       {
         "command": "code2md.generateMarkdownContext",
-        "title": "Code2MD: Generate from Selection (Context Menu)"
+        "title": "Code2MD: Generate from Selection (If both file and folders are selected only files will be processed) (Context Menu)"
       },
       {
         "command": "code2md.generateMarkdownFromFolder",
@@ -154,5 +154,6 @@
     "onCommand:code2md.generateMarkdownContext"
   ]
 }
+
 
 
