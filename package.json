@@ -2,7 +2,7 @@
   "name": "code2markdown-wizwam",
   "displayName": "Code2Markdown by Wizwam",
   "description": "Code2Markdown - A tool for efficiently communicating with AI",
-  "version": "1.1.25",
+  "version": "1.1.28",
   "publisher": "WIZWAM",
   "repository": {
     "type": "git",
@@ -88,7 +88,8 @@
             "__pycache__",
             "coverage",
             "logs",
-            "log"
+            "log",
+            "**/codereview/"
           ],
           "description": "Default directories to ignore when scanning a workspace folder."
         },
@@ -154,6 +155,9 @@
     "onCommand:code2md.generateMarkdownContext"
   ]
 }
+
+
+
 
 
 
