@@ -1,8 +1,11 @@
 .vscode/**
-src/**
 .gitignore
+node_modules/**
+src/**
 tsconfig.json
-code2md.code-workspace
+*.code-workspace
+AGENTS.md
+LOCAL-DEVELOPMENT.md
 PRDCode2MD.md
-node_modules/.cache
+docs/**
 **/*.map
