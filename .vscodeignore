@@ -1,0 +1,8 @@
+.vscode/**
+src/**
+.gitignore
+tsconfig.json
+code2md.code-workspace
+PRDCode2MD.md
+node_modules/.cache
+**/*.map
