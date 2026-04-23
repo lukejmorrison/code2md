@@ -37,7 +37,7 @@
       },
       {
         "command": "code2md.generateMarkdownContext",
-        "title": "Code2MD: Generate from Seleted Files or Forlders (Context Menu)"
+        "title": "Code2MD: Generate from Selected Files or Folders (Context Menu)"
       },
       {
         "command": "code2md.generateMarkdownFromFolder",
