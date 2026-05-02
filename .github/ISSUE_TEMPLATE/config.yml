@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Wizwam Trust Charter
+    url: https://github.com/Wizwam/charter
+    about: Governance, ten commandments, and how decisions get made.
+  - name: Security disclosure
+    url: mailto:security@wizwam.com
+    about: Report a vulnerability privately. Do not open a public issue.

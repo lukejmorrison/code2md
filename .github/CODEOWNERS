@@ -1,0 +1,9 @@
+# Default owners — every PR auto-requests review from this team.
+# Replace @Wizwam/platform-maintainers with the actual GitHub team handle.
+*                                  @Wizwam/platform-maintainers
+
+# Path-scoped owners (uncomment and edit as the team grows):
+# /admin/                          @Wizwam/admin-owners
+# /docs/                           @Wizwam/docs
+# /.github/                        @Wizwam/platform-maintainers
+# /lib/                            @Wizwam/platform-maintainers
